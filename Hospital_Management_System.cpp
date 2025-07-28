@@ -163,7 +163,7 @@ int main()
         {
             case '1':         // to admit a patient
                 clearScreen();
-                cout << "Patient id is              : " << assigned_id << endl;
+                cout << "Patient id is               : " << assigned_id << endl;
                 admit_patient(head,assigned_id++);
                 
                 break;
