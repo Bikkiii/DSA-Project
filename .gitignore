@@ -42,3 +42,8 @@
 
 # vscode configuration
 .vscode
+
+# output folder
+output
+
+*.pyc
