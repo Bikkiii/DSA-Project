@@ -1,17 +1,20 @@
 #include <iostream>
 #include <string>
+#include<cstdlib>
+#include<cstdlib>
+#include<cctype>
 using namespace std;
 class Node
 {
     public:
     int patient_id;
     string name;
-    int age;
+    string age;
     string gender;
     string disease;
     bool status;
     Node* next;
-    Node(int id,string name,int age,string gender,string disease)
+    Node(int id,string name,string age,string gender,string disease)
     {
         patient_id = id;
         this->name=name;
@@ -31,7 +34,17 @@ void clearScreen() {
     #endif
 }
 
-bool search_for_duplicate_admission(Node*head,const string& search_name,const int search_age,const string& search_gender,const string& search_disease)
+static bool isAgeValid(string age) 
+{
+            for(int i = 0; i < 2; i++) {
+                if(!isdigit(age[i])) {
+                    return false;
+                }
+            }
+            return true;
+}
+
+bool search_for_duplicate_admission(Node*head,const string& search_name,const string& search_age,const string& search_gender,const string& search_disease)
 {
     Node*temp = head;
     while(temp != NULL)
@@ -48,13 +61,18 @@ bool search_for_duplicate_admission(Node*head,const string& search_name,const in
 bool admit_patient(Node*& head, int id) 
  {
     string name;
-    int age;
+    string age;
     string gender;
     string disease;
     cout<<"Enter the name : ";
     getline(cin>>ws,name);
     cout<<"Enter Patient Age : ";
-    cin>>age;
+    getline(cin>>ws,age);
+    if (isAgeValid(age)!=true) 
+    {
+        cout<<"Invalid Input!!"<<endl;
+        return false;
+    }
     cout<<"Enter Patient Gender(M/F) : ";
     getline(cin >> ws,gender);
     cout<<"Enter Patient Disease : ";
@@ -204,10 +222,12 @@ void delete_all_patients(Node*& head)
     cout << "All patient records deleted." << endl;
 }
 
+
+
 int main()
 {
     Node* head = NULL;
-    int choice;
+    char choice;
     int discharge_id;
     int search_id;
     int assigned_id=0;          //Patient Id
@@ -217,19 +237,19 @@ int main()
     {
         cout<<endl;
         cout << "\t     === Hospital Management System ===" << endl;
-        cout<<"\tEnter 1 to admit a patient                 : "<<endl;
-        cout<<"\tEnter 2 to discharge a patient             : "<<endl;
-        cout<<"\tEnter 3 to display a patient detail        : "<<endl;
-        cout<<"\tEnter 4 to display all admitted patients   : "<<endl;
-        cout<<"\tEnter 5 to display all discharged patients : "<<endl;
-        cout<<"\tEnter 6 to display all patients            : "<<endl;
-        cout<<"\tEnter 7 to delete a patient record         : "<<endl;
-        cout<<"\tEnter 8 to delete all patient record       : "<<endl;
-        cout<<"\tEnter 9 to exit                            : "<<endl;
+        cout<<"\tEnter 1 to admit a patient                  "<<endl;
+        cout<<"\tEnter 2 to discharge a patient              "<<endl;
+        cout<<"\tEnter 3 to display a patient detail         "<<endl;
+        cout<<"\tEnter 4 to display all admitted patients    "<<endl;
+        cout<<"\tEnter 5 to display all edischarged patients  "<<endl;
+        cout<<"\tEnter 6 to display all patients             "<<endl;
+        cout<<"\tEnter 7 to delete a patient record          "<<endl;
+        cout<<"\tEnter 8 to delete all patient record        "<<endl;
+        cout<<"\tEnter 9 to exit                             "<<endl;
         cin>>choice;
         switch(choice)
         {
-            case 1:
+            case '1':
             {
                 if (admit_patient(head, assigned_id + 1)) 
                 {
@@ -238,7 +258,7 @@ int main()
                 }
                 break;
             }
-            case 2:         // to discharge a patient
+            case '2':         // to discharge a patient
             {
                 cout<<"Enter patient id : ";
                 cin>>discharge_id;
@@ -252,7 +272,7 @@ int main()
                 }
                 break;
             }
-            case 3:         // to display a patient detail
+            case '3':         // to display a patient detail
             {
                 cout<<"Enter patient id : ";
                 cin>>search_id;
@@ -267,23 +287,23 @@ int main()
                 }
                 break;
             }
-            case 4:     // to display all currently admitted patients
+            case '4':     // to display all currently admitted patients
             {
                 cout<<"Admitted Patients are: "<<endl;
                 display_all_admitted_patients(head);
                 break;
             }
-            case 5:     // to display all discharged patients
+            case '5':     // to display all discharged patients
             {
                 display_all_discharged_patients(head);
                 break;
             }
-            case 6:     // to display all patients of hospital
+            case '6':     // to display all patients of hospital
             {
                 display_all_patients(head);
                 break;
             }
-            case 7:     // to delete a record
+            case '7':     // to delete a record
             {
                 cout<<"Enter the patient id to be deleted : ";
                 cin>>delete_id;
@@ -297,12 +317,12 @@ int main()
                 }
                 break;                
             }
-            case 8:     // to delete all records
+            case '8':     // to delete all records
             {
                 delete_all_patients(head);
                 break;
             }
-            case 9:     // to terminate the application
+            case '9':     // to terminate the application
             {
                 cout<<"\t\t\t\t\t\t\tPROGRAM HAS ENDED";
                 break;
