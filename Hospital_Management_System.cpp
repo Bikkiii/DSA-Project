@@ -11,25 +11,32 @@ class Node
     string disease;
     bool status;
     Node* next;
-    Node(int id,string patient_name)
+    Node(int id,string name,int age,string gender,string disease)
     {
         patient_id = id;
-        name=patient_name;
-        cout<<"Enter Patient Age : "<<endl;
-        cin>>age;
-        cout<<"Enter Patient Gender : "<<endl;
-        cin>>gender;
-        cout<<"Enter Patient Disease : "<<endl;
-        getline(cin >> ws,disease);
+        this->name=name;
+        this->age=age;
+        this->gender=gender;
+        this->disease=disease;
         next = NULL;
 	}
 };
-bool search_for_duplicate_admission(Node*head,const string& search_name)
+
+void clearScreen() {
+    // Check the operating system
+    #ifdef _WIN32
+        system("cls"); // Clear screen for Windows
+    #else
+        system("clear"); // Clear screen for Unix/Linux/Mac
+    #endif
+}
+
+bool search_for_duplicate_admission(Node*head,const string& search_name,const int search_age,const string& search_gender,const string& search_disease)
 {
     Node*temp = head;
     while(temp != NULL)
     {
-        if(temp->name==search_name && temp->status==true)
+        if(temp->name==search_name && temp->age==search_age  && temp->gender==search_gender && temp->disease==search_disease && temp->status==true)
         {
             return true;
         }
@@ -37,19 +44,29 @@ bool search_for_duplicate_admission(Node*head,const string& search_name)
     }
     return false;
 }
+
 bool admit_patient(Node*& head, int id) 
  {
     string name;
+    int age;
+    string gender;
+    string disease;
     cout<<"Enter the name : ";
     getline(cin>>ws,name);
-    if(search_for_duplicate_admission(head,name)==true)
+    cout<<"Enter Patient Age : ";
+    cin>>age;
+    cout<<"Enter Patient Gender(M/F) : ";
+    getline(cin >> ws,gender);
+    cout<<"Enter Patient Disease : ";
+    getline(cin >> ws,disease);
+    if(search_for_duplicate_admission(head,name,age,gender,disease)==true)
     {
         cout << "Patient with the same name is already admitted.\n";
         return false;
     }
     else
     {
-       Node* newnode = new Node(id,name);
+       Node* newnode = new Node(id,name,age,gender,disease);
         if (head == NULL) 
         {
             head = newnode;
@@ -67,6 +84,7 @@ bool admit_patient(Node*& head, int id)
     }
     return true;
 }
+
 void display_a_patient(Node* head)
 {   
     cout<<"Patient ID : "<<head->patient_id<<endl;
@@ -76,6 +94,7 @@ void display_a_patient(Node* head)
     cout<<"Disease : "<<head->disease<<endl;
     cout<<"Patient status "<<(head->status ? " Admitted " : " Discharged ")<<endl;
 }
+
 Node* search_patient(Node* head, int id)
 {
     Node* temp = head;
@@ -83,7 +102,7 @@ Node* search_patient(Node* head, int id)
     {
         temp = temp->next;
     }
-    return temp;
+    return temp;            //Return null if patient is not found
 }
 
 void display_all_admitted_patients(Node* head)
@@ -98,6 +117,7 @@ void display_all_admitted_patients(Node* head)
         temp = temp->next;
     }
 }
+
 void display_all_discharged_patients(Node* head)
 {   
     Node* temp = head;
@@ -110,6 +130,7 @@ void display_all_discharged_patients(Node* head)
         temp = temp->next;
     }
 }
+
 void discharge_patient(Node* head, int id)
 {
     Node* discharged = search_patient(head, id);
@@ -134,6 +155,7 @@ void display_all_patients(Node* head)
         temp = temp->next;
     }
 }
+
 void delete_a_patient(Node*& head, int id)
 {
     if (head == NULL)
@@ -165,6 +187,7 @@ void delete_a_patient(Node*& head, int id)
     }
     delete temp;
 }
+
 void delete_all_patients(Node*& head)
 {
     Node* temp;
@@ -177,25 +200,27 @@ void delete_all_patients(Node*& head)
     }
     cout << "All patient records deleted." << endl;
 }
+
 int main()
 {
     Node* head = NULL;
     int choice;
     int discharge_id;
     int search_id;
-    int assigned_id=0;
+    int assigned_id=0;          //Patient Id
     int delete_id;
+    clearScreen();
     do
     {
-        cout<<endl<<"Enter 1 to admit a patient : "<<endl;
-        cout<<"Enter 2 to discharge a patient : "<<endl;
-        cout<<"Enter 3 to display a patient detail : "<<endl;
-        cout<<"Enter 4 to display all admitted patients : "<<endl;
+        cout<<"Enter 1 to admit a patient                 : "<<endl;
+        cout<<"Enter 2 to discharge a patient             : "<<endl;
+        cout<<"Enter 3 to display a patient detail        : "<<endl;
+        cout<<"Enter 4 to display all admitted patients   : "<<endl;
         cout<<"Enter 5 to display all discharged patients : "<<endl;
-        cout<<"Enter 6 to display all patients : "<<endl;
-        cout<<"Enter 7 to delete a patient record : "<<endl;
-        cout<<"Enter 8 to delete all patient record : "<<endl;
-        cout<<"Enter 9 to exit : "<<endl<<endl;
+        cout<<"Enter 6 to display all patients            : "<<endl;
+        cout<<"Enter 7 to delete a patient record         : "<<endl;
+        cout<<"Enter 8 to delete all patient record       : "<<endl;
+        cout<<"Enter 9 to exit                            : "<<endl;
         cin>>choice;
         switch(choice)
         {
