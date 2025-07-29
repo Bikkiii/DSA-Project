@@ -87,6 +87,7 @@ bool admit_patient(Node*& head, int id)
 
 void display_a_patient(Node* head)
 {   
+    cout<<endl;
     cout<<"Patient ID : "<<head->patient_id<<endl;
     cout<<"Patient Name : "<<head->name<<endl;
     cout<<"Age : "<<head->age<<endl;
@@ -112,6 +113,7 @@ void display_all_admitted_patients(Node* head)
     {
         if(temp->status)
         {
+            
             display_a_patient(temp);
         }
         temp = temp->next;
@@ -136,7 +138,7 @@ void discharge_patient(Node* head, int id)
     Node* discharged = search_patient(head, id);
     if (discharged == nullptr)
     {
-        cout << "Patient not found.\n";
+        cout << "Patient not found."<<endl;
         return;
     }
     cout << "Patient : " << endl;
@@ -176,7 +178,8 @@ void delete_a_patient(Node*& head, int id)
         return;
     }
     display_a_patient(temp);
-    cout << "\nRecord is deleted." << endl;
+    cout << "\nRecord is deleted."<< endl;
+    
     if (prev == NULL)  // Deleting head
     {
         head = head->next;
@@ -212,15 +215,17 @@ int main()
     clearScreen();
     do
     {
-        cout<<"Enter 1 to admit a patient                 : "<<endl;
-        cout<<"Enter 2 to discharge a patient             : "<<endl;
-        cout<<"Enter 3 to display a patient detail        : "<<endl;
-        cout<<"Enter 4 to display all admitted patients   : "<<endl;
-        cout<<"Enter 5 to display all discharged patients : "<<endl;
-        cout<<"Enter 6 to display all patients            : "<<endl;
-        cout<<"Enter 7 to delete a patient record         : "<<endl;
-        cout<<"Enter 8 to delete all patient record       : "<<endl;
-        cout<<"Enter 9 to exit                            : "<<endl;
+        cout<<endl;
+        cout << "\t     === Hospital Management System ===" << endl;
+        cout<<"\tEnter 1 to admit a patient                 : "<<endl;
+        cout<<"\tEnter 2 to discharge a patient             : "<<endl;
+        cout<<"\tEnter 3 to display a patient detail        : "<<endl;
+        cout<<"\tEnter 4 to display all admitted patients   : "<<endl;
+        cout<<"\tEnter 5 to display all discharged patients : "<<endl;
+        cout<<"\tEnter 6 to display all patients            : "<<endl;
+        cout<<"\tEnter 7 to delete a patient record         : "<<endl;
+        cout<<"\tEnter 8 to delete all patient record       : "<<endl;
+        cout<<"\tEnter 9 to exit                            : "<<endl;
         cin>>choice;
         switch(choice)
         {
@@ -264,6 +269,7 @@ int main()
             }
             case 4:     // to display all currently admitted patients
             {
+                cout<<"Admitted Patients are: "<<endl;
                 display_all_admitted_patients(head);
                 break;
             }
@@ -305,6 +311,6 @@ int main()
             cout<<"Invalid option ";
         }
     }while(choice!=9);
-    cout<<"\n\n\n\t\t\t\t\t\t\tProgramed by :\n \t\t\t\t\t\t\tAPOORVA PAUDEL \n \t\t\t\t\t\t\tBIKASH DHAMI";
+    cout<<"\n\n\n\t\t\t\t\t\t\tProgrammed by :\n \t\t\t\t\t\t\tAPOORVA PAUDEL \n \t\t\t\t\t\t\tBIKASH DHAMI";
     return 0;
 }
