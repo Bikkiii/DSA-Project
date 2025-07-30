@@ -330,7 +330,7 @@ int main()
             default:
             cout<<"Invalid option ";
         }
-    }while(choice!=9);
+    }while(choice!='9');
     cout<<"\n\n\n\t\t\t\t\t\t\tProgrammed by :\n \t\t\t\t\t\t\tAPOORVA PAUDEL \n \t\t\t\t\t\t\tBIKASH DHAMI";
     return 0;
 }
