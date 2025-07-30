@@ -36,12 +36,16 @@ void clearScreen() {
 
 static bool isAgeValid(string age) 
 {
-            for(int i = 0; i < 2; i++) {
-                if(!isdigit(age[i])) {
-                    return false;
-                }
-            }
-            return true;
+    if (age.empty() || age.size() > 3)      // allows 1–3 digits
+    {
+        return false;
+      }  
+    for(int i = 0; i < age.size(); i++) {
+        if(!isdigit(age[i])) {
+            return false;
+        }
+    }
+    return true;
 }
 
 bool search_for_duplicate_admission(Node*head,const string& search_name,const string& search_age,const string& search_gender,const string& search_disease)
@@ -106,12 +110,14 @@ bool admit_patient(Node*& head, int id)
 void display_a_patient(Node* head)
 {   
     cout<<endl;
+    cout << "----------------------------\n";
     cout<<"Patient ID : "<<head->patient_id<<endl;
     cout<<"Patient Name : "<<head->name<<endl;
     cout<<"Age : "<<head->age<<endl;
     cout<<"Gender : "<<head->gender<<endl;
     cout<<"Disease : "<<head->disease<<endl;
     cout<<"Patient status "<<(head->status ? " Admitted " : " Discharged ")<<endl;
+    cout << "----------------------------\n";
 }
 
 Node* search_patient(Node* head, int id)
@@ -241,7 +247,7 @@ int main()
         cout<<"\tEnter 2 to discharge a patient              "<<endl;
         cout<<"\tEnter 3 to display a patient detail         "<<endl;
         cout<<"\tEnter 4 to display all admitted patients    "<<endl;
-        cout<<"\tEnter 5 to display all edischarged patients  "<<endl;
+        cout<<"\tEnter 5 to display all discharged patients  "<<endl;
         cout<<"\tEnter 6 to display all patients             "<<endl;
         cout<<"\tEnter 7 to delete a patient record          "<<endl;
         cout<<"\tEnter 8 to delete all patient record        "<<endl;
