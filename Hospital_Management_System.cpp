@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include<cstdlib>
-#include<cstdlib>
 #include<cctype>
 using namespace std;
 class Node
@@ -133,6 +132,10 @@ Node* search_patient(Node* head, int id)
 void display_all_admitted_patients(Node* head)
 {   
     Node* temp = head;
+    if (head == NULL) {
+    cout << "patients not found.\n";
+    return;
+}
     while(temp != NULL)
     {
         if(temp->status)
@@ -147,6 +150,10 @@ void display_all_admitted_patients(Node* head)
 void display_all_discharged_patients(Node* head)
 {   
     Node* temp = head;
+    if (head == NULL) {
+    cout << "patients not found.\n";
+    return;
+    }
     while(temp != NULL)
     {
         if(!temp->status)
@@ -174,6 +181,10 @@ void discharge_patient(Node* head, int id)
 void display_all_patients(Node* head)
 {   
     Node* temp = head;
+    if (head == NULL) {
+    cout << "patients not found.\n";
+    return;
+    }
     cout<<"\nList of all patients  : \n";
     while(temp != NULL)
     {
@@ -186,7 +197,7 @@ void delete_a_patient(Node*& head, int id)
 {
     if (head == NULL)
     {
-        cout << "Invalid request" << endl;
+        cout << "Patient not found" << endl;
         return;
     }
     Node* temp = head;
@@ -218,6 +229,10 @@ void delete_a_patient(Node*& head, int id)
 void delete_all_patients(Node*& head)
 {
     Node* temp;
+    if (head == NULL) {
+    cout << "patients not found.\n";
+    return;
+    }
     while (head != NULL)
     {
         temp = head;
